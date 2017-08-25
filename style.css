@@ -241,7 +241,7 @@ position: absolute;
 
 .btn_menu_droite div{
   line-height: 1.2;
-  padding-top: 4px;
+  padding-top: 10px;
 }
 
 .btn190x70_droite:first-child {
@@ -249,7 +249,7 @@ position: absolute;
 }
 
 .btn190x70_droite:last-child {
-  padding-top: 18px;
+  padding-top: 10px;
 }
 
 .btn190x70_gauche{

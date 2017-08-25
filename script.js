@@ -63,9 +63,9 @@ var cwf_router;
                 document.getElementById("chargement-text").innerText = "Configuration en cours …";
             }, 4000);
             setTimeout(function () {
-                cwf_router.manager.showView('installation');
+                cwf_router.manager.showView('identification');alert("Ceci est juste une démo de simulation qui n'est pas reliée aux serveurs de la FDJ, veuillez taper un code opérateur et mot de passe de votre choix en respectant les règles");
             }, 6000);
-            setTimeout(function () {
+            /*setTimeout(function () {
                 bus.open(function () {
                     cwf_router.session.openPopupMessagepermanent("", "APPLICATION HORS SERVICE");
                 });
@@ -124,7 +124,7 @@ var cwf_router;
                 bus.subscribeEvent(sdk.technic.network.popupBasic.event.hide, function () {
                     console.log("received hide popup");
                 });
-            }, 1000);
+            }, 1000);*/
         }
         manager._getInstance = function () {
             if (this.m_poManager === null || this.m_poManager === undefined)
@@ -714,7 +714,12 @@ var cwf_claviernum;
                     var myVar = setTimeout(function () {
                         document.getElementById("waiting_icon").style.display = "block";
                     }, 2000);
-                    var loginResult = sdk.project.middleware.user.login(_this.mylogin.value, _this.mypwd.value);
+					
+					cwf_router.manager.showView('accueil');
+					 clearTimeout(myVar);
+                        document.getElementById("waiting_bg").style.display = "none";
+                        document.getElementById("waiting_icon").style.display = "none";
+                   /* var loginResult = sdk.project.middleware.user.login(_this.mylogin.value, _this.mypwd.value);
                     loginResult.success(function () {
                         console.log("login promise success");
                         cwf_router.manager.showView('accueil');
@@ -730,7 +735,7 @@ var cwf_claviernum;
                         clearTimeout(myVar);
                         document.getElementById("waiting_bg").style.display = "none";
                         document.getElementById("waiting_icon").style.display = "none";
-                    }, _this);
+                    }, _this);*/
                 }
                 else {
                     if (_this.login_digit_count < 7) {
@@ -1960,7 +1965,12 @@ var cwf_submenu;
                     var myVar = setTimeout(function () {
                         document.getElementById("waiting_icon").style.display = "block";
                     }, 2000);
-                    var logoutResult = sdk.project.middleware.user.logout();
+					clearTimeout(myVar);
+                        cwf_router.manager.showView('identification');
+                        document.getElementById("waiting_bg").style.display = "none";
+                        document.getElementById("waiting_icon").style.display = "none";
+                        document.getElementById("serveur").style.display = "none";
+                   /* var logoutResult = sdk.project.middleware.user.logout();
                     logoutResult.success(function () {
                         console.log("logout promise success");
                     }, _this).fail(function () {
@@ -1972,7 +1982,7 @@ var cwf_submenu;
                         document.getElementById("waiting_bg").style.display = "none";
                         document.getElementById("waiting_icon").style.display = "none";
                         document.getElementById("serveur").style.display = "none";
-                    }, _this);
+                    }, _this);*/
                 }
             };
         }
@@ -2733,7 +2743,8 @@ var view_00_infos;
             _super.apply(this, arguments);
             this.gotoInfos = function (event) {
                 if (event.target.id == "config-ip") {
-                    cwf_router.session.getConfigIp();
+				cwf_router.manager.showView('configuration_ip');
+                    //cwf_router.session.getConfigIp();
                 }
             };
         }
@@ -2911,7 +2922,9 @@ var view_02_accueil;
                         {
                             className: "menu_jeu_buttons"
                         },
-                        React.createElement("li", { className: "btn_menu_jeu" }, React.createElement("div", { id: "loto", className: "loto", onClick: this.gotoGame }) )
+                        React.createElement("li", { className: "btn_menu_jeu" }, React.createElement("div", { id: "loto", className: "loto", onClick: this.gotoGame }) ),
+						React.createElement("li", { className: "btn_menu_jeu" }, React.createElement("div", { id: "super-loto", className: "super-loto", onClick: this.gotoGame }) ),
+						React.createElement("li", { className: "btn_menu_jeu" }, React.createElement("div", { id: "euro-millions", className: "euro-millions", onClick: this.gotoGame }) )
                     )
                 ),
                 React.createElement(
@@ -2923,7 +2936,11 @@ var view_02_accueil;
                         "div",
                         {
                             className: "btn_menu_droite"
-                        }
+                        },
+						 React.createElement("div", { className: "btn190x70_droite" }, React.createElement("div", null,"Lecture code-barres") ),
+						 React.createElement("div", { className: "btn190x70_droite" }, React.createElement("div", null,"Annulation jeu") ),
+						 React.createElement("div", { className: "btn190x70_droite" }, React.createElement("div", null,"Annulation gain") ),
+						 React.createElement("div", { className: "btn190x70_droite" }, React.createElement("div", null,"Rapports") )
                     )
                 )
             ));
@@ -2939,6 +2956,9 @@ var view_03_loto;
         __extends(controller, _super);
         function controller() {
             _super.apply(this, arguments);
+			this.gotoPayment = function (event) {
+                cwf_router.manager.showView('paiement');
+            };
         }
         controller.prototype.getName = function () {
             return "loto";
@@ -2960,12 +2980,12 @@ var view_03_loto;
                         {
                             className: "menu_grille_buttons"
                         },
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-1", className: "grille-l-1" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-2", className: "grille-l-2" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-3", className: "grille-l-3" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-4", className: "grille-l-4" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-5", className: "grille-l-5" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-6", className: "grille-l-6" }) )
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-1", className: "grille-l-1" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-2", className: "grille-l-2" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-3", className: "grille-l-3" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-4", className: "grille-l-4" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-5", className: "grille-l-5" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-l-6", className: "grille-l-6" , onClick: this.gotoPayment}) )
                     )
                 )
             ));
@@ -2981,6 +3001,9 @@ var view_04_superloto;
         __extends(controller, _super);
         function controller() {
             _super.apply(this, arguments);
+			this.gotoPayment = function (event) {
+                cwf_router.manager.showView('paiement');
+            };
         }
         controller.prototype.getName = function () {
             return "superloto";
@@ -3002,12 +3025,12 @@ var view_04_superloto;
                         {
                             className: "menu_grille_buttons"
                         },
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-1", className: "grille-sl-1" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-2", className: "grille-sl-2" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-3", className: "grille-sl-3" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-4", className: "grille-sl-4" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-5", className: "grille-sl-5" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-6", className: "grille-sl-6" }) )
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-1", className: "grille-sl-1" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-2", className: "grille-sl-2" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-3", className: "grille-sl-3" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-4", className: "grille-sl-4" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-5", className: "grille-sl-5" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-sl-6", className: "grille-sl-6" , onClick: this.gotoPayment}) )
                     )
                 )
             ));
@@ -3023,6 +3046,9 @@ var view_05_euromillions;
         __extends(controller, _super);
         function controller() {
             _super.apply(this, arguments);
+			this.gotoPayment = function (event) {
+                cwf_router.manager.showView('paiement');
+            };
         }
         controller.prototype.getName = function () {
             return "euromillions";
@@ -3044,12 +3070,12 @@ var view_05_euromillions;
                         {
                             className: "menu_grille_buttons"
                         },
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-1", className: "grille-em-1" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-2", className: "grille-em-2" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-3", className: "grille-em-3" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-4", className: "grille-em-4" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-5", className: "grille-em-5" }) ),
-                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-6", className: "grille-em-6" }) )
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-1", className: "grille-em-1" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-2", className: "grille-em-2" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-3", className: "grille-em-3" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-4", className: "grille-em-4" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-5", className: "grille-em-5" , onClick: this.gotoPayment}) ),
+                        React.createElement("li", { className: "btn_menu_grille" }, React.createElement("div", { id: "grille-em-6", className: "grille-em-6" , onClick: this.gotoPayment}) )
                     )
                 )
             ));
